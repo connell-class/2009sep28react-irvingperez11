@@ -1,9 +1,9 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class EvaluationService {
 
 	/**
@@ -31,7 +31,20 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] splitPhrase = phrase.split(" ");
+		String Acronym = "";
+		for(String x : splitPhrase) {
+			if(x.contains("-")) {
+				String[] t = x.split("-");
+				for(String v :  t) {
+					Acronym += v.charAt(0);
+				}
+			}
+			else {
+			Acronym += x.charAt(0);
+			}
+		}
+		return Acronym.toUpperCase();
 	}
 
 	/**
@@ -85,16 +98,47 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
+			if(this.sideOne == this.sideTwo) {
+				if(this.sideOne == this.sideThree) {
+					if(this.sideTwo == this.sideThree) {
+						return true;
+					}
+				}
+			}
 			return false;
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
+			if(this.sideOne == this.sideTwo) {
+					
+
+						return true;
+						
+							
+			}else if(this.sideOne == this.sideThree) {
+				
+			
+					return true;		
+			}else if(	this.sideTwo == this.sideThree ) {
+			
+					return true;
+						
+			}
+			
 			return false;
+			
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
+			if(this.sideOne != this.sideTwo) {
+				if(this.sideOne != this.sideThree) {
+					if(this.sideTwo != this.sideThree) {
+						return true;
+					}
+				}
+			}
 			return false;
 		}
 
@@ -117,7 +161,32 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		String[] splitletters = string.split("");
+		int score = 0;
+		for(String x : splitletters){
+			String y = x.toUpperCase();
+
+			if(y.equals("A")||y.equals("E")||y.equals("I")||y.equals("O")||y=="U") {
+				score++;
+			}else if(y.equals("L")|| y.equals("N") || y.equals("R") ||y.equals("S")) {
+				score++;
+			}else if(y.equals("Y")|| y.equals("D") ) {
+				score +=2;
+			}else if(y.equals("B")|| y.equals("C") || y.equals("M") ||y.equals("P")) {
+				score+= 3;
+			}else if(y.equals("F")|| y.equals("H") || y.equals("V") ||y.equals("W") || y.equals("Y")) {
+				score+= 4;
+			}else if(y.equals("K")){
+				score += 5;
+			}else if(y.equals("J")||y.equals("X")) {
+				score += 8;
+			}else if(y.equals("Z")) {
+				score +=10;
+			}
+		}
+		
+		return score;
+		
 	}
 
 	/**
@@ -153,7 +222,55 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		 
+		int is = 0;
+		String alphabet = "abcdefghijklmnopqrstuvwxyz@:!";
+		String[] alphabetSplit = alphabet.split("");
+		//This takes the string 
+		String number = string.replaceAll("[-_+\\.\\(\\)\\s]+", "");
+		
+		
+		if(number.length() == 11) {
+			if(number.charAt(0) != '1') {
+				throw new IllegalArgumentException();
+			}else {
+				number = number.substring(1);
+			}
+		}
+		
+		if(number.length() > 11) {
+			throw new IllegalArgumentException();
+		}
+		
+		if(number.length() < 10) {
+			throw new IllegalArgumentException();
+		}
+		for(String c : alphabetSplit) {
+			if(number.contains(c)) {
+				throw new IllegalArgumentException();
+			}
+		}
+		
+		switch (number.charAt(0)) {
+		case '0':
+			throw new IllegalArgumentException();
+		case '1':
+			throw new IllegalArgumentException();
+		default:
+			break;
+		}
+
+		switch (number.charAt(3)) {
+		case '0':
+			throw new IllegalArgumentException();
+		case '1':
+			throw new IllegalArgumentException();
+		default:
+			break;
+		}
+		
+		return number;
+		
 	}
 
 	/**
@@ -167,6 +284,18 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
+		
+		
+		Map<String, Integer> countedWords = new HashMap<>();
+		String[] words = string.split(" ");
+		
+		for(String word : words) {
+			if(countedWords.containsKey(word)) {
+				
+			}
+		}
+		
+		
 		return null;
 	}
 
