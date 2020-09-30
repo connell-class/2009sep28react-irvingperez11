@@ -287,16 +287,22 @@ public class EvaluationService {
 		
 		
 		Map<String, Integer> countedWords = new HashMap<>();
-		String[] words = string.split(" ");
 		
+		String number = string.replaceAll("[-_+\\,\\.\\(\\)\\s]+", " ");
+		String[] words = number.split(" ");
+		int i = 0;
 		for(String word : words) {
 			if(countedWords.containsKey(word)) {
-				
+				i = countedWords.get(word);
+				i++;
+				countedWords.replace(word, i);
+			}else {
+				countedWords.put(word, 1);
 			}
 		}
 		
 		
-		return null;
+		return countedWords;
 	}
 
 	/**
@@ -376,7 +382,94 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] words = string.split(" ");
+		String piggy = "";
+		String begin = "";
+		String rest = "";
+		String av = "ay";
+		if(words.length > 1) {
+			int x = 0;
+			for(String s : words) {
+				switch(s.charAt(0)) {
+				case 'a':
+					piggy = piggy + " " + s + av;
+					break;
+				case 'e':
+					piggy = piggy + " " + s + av;
+					break;
+				case 'i':
+					piggy = piggy + " " + s + av;
+					break;
+				case 'o':
+					piggy = piggy + " " + s + av;
+					break;
+				case 'u':
+					piggy = piggy + " " + s + av;
+					break;
+				case 't':
+					if(s.charAt(1) == 'h') {
+						begin = s.substring(0,2);
+						rest = s.substring(2);
+						piggy = piggy + " " + rest + begin + av;
+						break;
+					}
+					break;
+				case 'q':
+					if(string.charAt(1) == 'u') {
+						begin = s.substring(0,2);
+						rest = s.substring(2);
+						piggy =piggy + " " + rest + begin + av;
+						break;
+					}
+					break;
+				default:
+					begin = s.substring(0,1);
+					rest = s.substring(1);
+					piggy = piggy + " " + rest + begin + av;
+					break;
+				}
+			}
+			
+		}else {
+			switch(string.charAt(0)) {
+			case 'a':
+				piggy = string + av;
+				break;
+			case 'e':
+				piggy = string + av;
+				break;
+			case 'i':
+				piggy = string + av;
+				break;
+			case 'o':
+				piggy = string + av;
+				break;
+			case 'u':
+				piggy = string + av;
+				break;
+			case 't':
+				if(string.charAt(1) == 'h') {
+					begin = string.substring(0,2);
+					rest = string.substring(2);
+					piggy = rest + begin + av;
+					break;
+				}
+				break;
+				
+			default:
+				begin = string.substring(0,1);
+				rest = string.substring(1);
+				piggy = rest + begin + av;
+				break;
+			}
+			
+		}
+		System.out.println(piggy);
+		if(piggy.charAt(0) == ' ') {
+			piggy = piggy.substring(1);
+			System.out.println(piggy);
+		}
+		return piggy;
 	}
 
 	/**
@@ -396,9 +489,67 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		boolean answer = false;
+//		String inputed = ""+input;
+//		String[] numbers = inputed.split("");
+//		int total = 0;
+//		int len = numbers.length;
+//		
+//		for(String s : numbers) {
+//			int val = Integer.parseInt(s);
+//			for(int i =0; i<len;i++) {
+//				
+//			}
+//		}
+//		 int c = 0;
+//		 int a;
+//		 int temp;  
+//		 int n = input;//It is the number to check armstrong  
+//		 temp = n;
+//		 System.out.println("input is " +temp);
+//		 if(n < 10) {
+//			 c=n;
+//		 }else {
+//			 while(n>0)  {  
+//				 a=n%10;
+//				 System.out.println(a);
+//				 n=n/10; 
+//				 System.out.println(n);
+//				 c=c+(a*a*a); 
+//				 System.out.println(c);
+//			 }  
+//		 }
+//	    System.out.println("c is " + c );
+//	    if(temp==c) { 
+//	    	answer = true;
+//	    	System.out.println("armstrong number");
+//	    }else {
+//	    	answer = false;
+//	        System.out.println("Not armstrong number");   
+//	   }  
+//	    
+//	}
+		int num = input, number, temp, total = 0;
+		String ints = "" + input;
+		String[] array = ints.split("");
+		int len = array.length;
+        number = num;
+        
+        while (number != 0)
+        {
+            temp = number % 10;
+            total = (int) (total + Math.pow(temp, len));
+            number /= 10;
+        }
+        System.out.println("total is "+total);
+        if(total == num) {
+        	answer = true;
+            System.out.println(num + " is an Armstrong number");
+        }else {
+            System.out.println(num + " is not an Armstrong number");
+        }
+        return answer;
 	}
-
 	/**
 	 * 10. Compute the prime factors of a given natural number.
 	 * 
@@ -517,6 +668,7 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
+			
 			return null;
 		}
 	}
@@ -545,7 +697,44 @@ public class EvaluationService {
 	 */
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		String isbn = string;
+		 if ( isbn == null )
+	        {
+	            return false;
+	        }
+
+	        //remove any hyphens
+	        isbn = isbn.replaceAll( "-", "" );
+
+	        //must be a 13 digit ISBN
+	        if ( isbn.length() != 13 )
+	        {
+	            return false;
+	        }
+
+	        try
+	        {
+	            int tot = 0;
+	            for ( int i = 0; i < 12; i++ )
+	            {
+	                int digit = Integer.parseInt( isbn.substring( i, i + 1 ) );
+	                tot += (i % 2 == 0) ? digit * 1 : digit * 3;
+	            }
+
+	            //checksum must be 0-9. If calculated as 10 then = 0
+	            int checksum = 10 - (tot % 10);
+	            if ( checksum == 10 )
+	            {
+	                checksum = 0;
+	            }
+
+	            return checksum == Integer.parseInt( isbn.substring( 12 ) );
+	        }
+	        catch ( NumberFormatException nfe )
+	        {
+	            //to catch invalid ISBNs that have non-numeric characters in them
+	            return false;
+	        }
 	}
 
 	/**
