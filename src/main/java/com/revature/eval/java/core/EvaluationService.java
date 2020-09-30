@@ -490,45 +490,6 @@ public class EvaluationService {
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
 		boolean answer = false;
-//		String inputed = ""+input;
-//		String[] numbers = inputed.split("");
-//		int total = 0;
-//		int len = numbers.length;
-//		
-//		for(String s : numbers) {
-//			int val = Integer.parseInt(s);
-//			for(int i =0; i<len;i++) {
-//				
-//			}
-//		}
-//		 int c = 0;
-//		 int a;
-//		 int temp;  
-//		 int n = input;//It is the number to check armstrong  
-//		 temp = n;
-//		 System.out.println("input is " +temp);
-//		 if(n < 10) {
-//			 c=n;
-//		 }else {
-//			 while(n>0)  {  
-//				 a=n%10;
-//				 System.out.println(a);
-//				 n=n/10; 
-//				 System.out.println(n);
-//				 c=c+(a*a*a); 
-//				 System.out.println(c);
-//			 }  
-//		 }
-//	    System.out.println("c is " + c );
-//	    if(temp==c) { 
-//	    	answer = true;
-//	    	System.out.println("armstrong number");
-//	    }else {
-//	    	answer = false;
-//	        System.out.println("Not armstrong number");   
-//	   }  
-//	    
-//	}
 		int num = input, number, temp, total = 0;
 		String ints = "" + input;
 		String[] array = ints.split("");
@@ -697,44 +658,39 @@ public class EvaluationService {
 	 */
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
-		String isbn = string;
-		 if ( isbn == null )
-	        {
-	            return false;
-	        }
+		String sum;
+		if (  string == null ){
+            return false;
+        }
 
-	        //remove any hyphens
-	        isbn = isbn.replaceAll( "-", "" );
+        //remove any hyphens
+		String isbn =  string.replaceAll( "-", "" );
 
-	        //must be a 13 digit ISBN
-	        if ( isbn.length() != 13 )
-	        {
-	            return false;
-	        }
+        //must be a 10 digit ISBN
+        if ( isbn.length() != 10 ){
+            return false;
+        }
 
-	        try
-	        {
-	            int tot = 0;
-	            for ( int i = 0; i < 12; i++ )
-	            {
-	                int digit = Integer.parseInt( isbn.substring( i, i + 1 ) );
-	                tot += (i % 2 == 0) ? digit * 1 : digit * 3;
-	            }
+        try{
+            int total = 0;
+            for ( int i = 0; i < 9; i++ ){
+                String temp =  isbn.substring( i, i + 1 );
+            	int digit = Integer.parseInt(temp );
+                total += ((10 - i) * digit);
+            }
 
-	            //checksum must be 0-9. If calculated as 10 then = 0
-	            int checksum = 10 - (tot % 10);
-	            if ( checksum == 10 )
-	            {
-	                checksum = 0;
-	            }
+             sum = Integer.toString( (11 - (total % 11)) % 11 );
+            if ("10".equals(sum)){
+                sum = "X";
+            }
 
-	            return checksum == Integer.parseInt( isbn.substring( 12 ) );
-	        }
-	        catch ( NumberFormatException nfe )
-	        {
-	            //to catch invalid ISBNs that have non-numeric characters in them
-	            return false;
-	        }
+            return sum.equals( isbn.substring( 9 ) );
+        }
+        catch ( NumberFormatException e )
+        {
+            //to catch ISBNs that have non-numeric characters in them
+            return false;
+        }
 	}
 
 	/**
