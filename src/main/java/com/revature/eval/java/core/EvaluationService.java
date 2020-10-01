@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -345,6 +346,12 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+			String ts =  t.toString();
+			
+			int index = Integer.parseInt(ts);
+			
+			
+			
 			return 0;
 		}
 
@@ -708,9 +715,28 @@ public class EvaluationService {
 	 */
 	public boolean isPangram(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		
+		int[] letters = new int [26];
+		int position = 0;
+		boolean  is = true;
+		
+		for (int i = 0; i < string.length(); i++) {
+	          if( string.charAt(i) >= 'a' && string.charAt(i) <= 'z') {
+	            position = string.charAt(i) - 'a';
+	      }
+	         
+	         letters[position] = 1;
+	     
+		}
+		
+		for (int i = 0; i < letters.length; i++) {
+			if(letters[i] == 0)
+				is = false;
+		}
+		
+		return is;
+		
 	}
-
 	/**
 	 * 17. Calculate the moment when someone has lived for 10^9 seconds.
 	 * 
@@ -739,7 +765,28 @@ public class EvaluationService {
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int sum = 0;
+		ArrayList<Integer> multpil = new ArrayList<Integer>();
+		int curr ;
+		for(int x = 0; x<set.length; x++ ) {
+			curr = set[x];
+			for(int z = set[x] ; z < i; z++) {
+				
+				if( z % curr  ==0) {
+					
+					if(!multpil.contains(z)) {
+						multpil.add(z);
+						sum = sum + z;
+						System.out.println(z + " was added");
+					}
+					
+				}
+			}
+			
+		}
+		
+		
+		return sum;
 	}
 
 	/**
