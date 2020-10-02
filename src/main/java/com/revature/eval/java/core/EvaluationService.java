@@ -512,9 +512,7 @@ public class EvaluationService {
         System.out.println("total is "+total);
         if(total == num) {
         	answer = true;
-            System.out.println(num + " is an Armstrong number");
-        }else {
-            System.out.println(num + " is not an Armstrong number");
+           
         }
         return answer;
 	}
@@ -530,7 +528,27 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> pFactors = new ArrayList<Long>();
+		long number = l;
+		
+		 while (number % 2 == 0) { 
+	            	pFactors.add((long) 2);
+	            number /= 2; 
+	        } 
+		 
+		for(long i = 3; i < number; i+=2) {
+			while(number%i==0) {
+				
+					pFactors.add(i);
+				
+				number= number/i;
+			}
+		}
+		if(number > 2 ) {
+			pFactors.add(number);
+		}
+		
+		return pFactors;
 	}
 
 	/**
@@ -588,9 +606,24 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int nth = i;
+		int number = 1;
+		int count = 0;
+		int iterator ;
+		while(count < nth) {
+			number++;
+			for(iterator = 2; iterator <= number;iterator++) {
+				if (number% iterator==0) {
+					break;
+				}
+			}
+			if (iterator == number) {
+				count = count +1;
+			}
+		}	
+		return number;
+	
 	}
-
 	/**
 	 * 13 & 14. Create an implementation of the atbash cipher, an ancient encryption
 	 * system created in the Middle East.
@@ -827,7 +860,34 @@ public class EvaluationService {
 	 */
 	public boolean isLuhnValid(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+	 	
+		
+	    int finalSum = 0;
+	    boolean doubled= false;
+	    boolean answer = false;
+	    
+	    String number = string.replaceAll(" ", "");
+
+		int numOfDigits = number.length();
+	    for (int i = numOfDigits - 1; i >= 0; i--) 
+	    {
+	 
+	        int d = number.charAt(i) - '0';
+	        System.out.println(number);
+	        System.out.println(d);
+	        if (doubled == true)
+	            d = d * 2;
+	 
+	        // We add two digits to handle
+	        // cases that make two digits 
+	        // after doubling
+	        finalSum += ((d / 10) + (d % 10));
+	 
+	        doubled = !doubled;
+	    }
+	    if(finalSum % 10 == 0)
+	    	answer = true;
+	    return answer;	
 	}
 
 	/**
@@ -859,7 +919,31 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		String in = string.replace("?", "");
+		String[] indivWords = string.split(" ");
+		int result= 0;
+		int a;
+		int b;
+		if(indivWords[3].equals("plus")) {
+			a = Integer.parseInt(indivWords[2]);
+			b = Integer.parseInt(indivWords[4].substring(0, indivWords[4].length()-1));
+			result = a +b;		
+		}else if(indivWords[3].equals("minus")) {
+				a = Integer.parseInt(indivWords[2]);
+				b = Integer.parseInt(indivWords[4].substring(0, indivWords[4].length()-1));
+				result = a -b;		
+		}else if(indivWords[3].equals("multiplied")) {
+			a = Integer.parseInt(indivWords[2]);
+			b = Integer.parseInt(indivWords[5].substring(0, indivWords[5].length()-1));
+			result = a *b;		
+		}else if(indivWords[3].equals("divided")) {
+			a = Integer.parseInt(indivWords[2]);
+			b = Integer.parseInt(indivWords[5].substring(0, indivWords[5].length()-1));
+			result = a /b;		
+		}
+		
+		return result;
 	}
 
 }
